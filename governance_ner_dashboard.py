@@ -1,12 +1,10 @@
-import os
-os.system("python -m spacy download en_core_web_sm")  # Auto-download model on Streamlit Cloud
-
-import streamlit as st
-import pandas as pd
-import fitz  # PyMuPDF
-import tempfile
-import re
 import spacy
+from spacy.util import is_package
+
+# Auto-download if missing
+if not is_package("en_core_web_sm"):
+    import subprocess
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
 
 nlp = spacy.load("en_core_web_sm")
 
